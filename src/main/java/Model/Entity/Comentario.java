@@ -13,72 +13,99 @@ import java.sql.Date;
 public class Comentario {
     
     private int id;
-    private int idUsuario;
-    private int idPublicacion;
-    private Usuario usuario;
+    private Publicacion idPublicacion;
+    private Usuario idUsuario;
     private String texto;
     private java.sql.Date fecha;
 
-    public Comentario() {
-    }
-
-    public Comentario(int id, int idUsuario, int idPublicacion, Usuario usuario, String texto, Date fecha) {
+    public Comentario(int id, Publicacion idPublicacion, Usuario idUsuario, String texto, Date fecha) {
         this.id = id;
-        this.idUsuario = idUsuario;
         this.idPublicacion = idPublicacion;
-        this.usuario = usuario;
+        this.idUsuario = idUsuario;
         this.texto = texto;
         this.fecha = fecha;
     }
 
+    public Comentario() {
+    }
+    
+
+
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public int getIdPublicacion() {
+    /**
+     * @return the idPublicacion
+     */
+    public Publicacion getIdPublicacion() {
         return idPublicacion;
     }
 
-    public void setIdPublicacion(int idPublicacion) {
+    /**
+     * @param idPublicacion the idPublicacion to set
+     */
+    public void setIdPublicacion(Publicacion idPublicacion) {
         this.idPublicacion = idPublicacion;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    /**
+     * @return the idUsuario
+     */
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
+    /**
+     * @return the texto
+     */
     public String getTexto() {
         return texto;
     }
 
+    /**
+     * @param texto the texto to set
+     */
     public void setTexto(String texto) {
         this.texto = texto;
     }
 
-    public Date getFecha() {
+    /**
+     * @return the fecha
+     */
+    public java.sql.Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
     }
 
+    @Override
+    public String toString() {
+        return "Comentario{" + "id=" + id + ", Publicacion=" + "id: "+ idPublicacion.getId()+ ", titulo: " + idPublicacion.getTitulo() 
+                + ", Usuario=" + "id: " + idUsuario.getId() + ", nombre: " + idUsuario.getNombreUsuario() + ", texto=" + texto + ", fecha=" + fecha + '}';
+    }
     
     
     

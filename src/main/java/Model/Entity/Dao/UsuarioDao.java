@@ -38,6 +38,7 @@ public class UsuarioDao implements IUsuario {
             sentencia = connection.prepareStatement(SQL_INSERTAR);
             sentencia.setInt(1, usuario.getId());
             sentencia.setString(2, usuario.getNombreUsuario());
+            usuario.setContrasena(encriptarContraseña(usuario.getContrasena()));
             sentencia.setString(3, usuario.getContrasena());
             sentencia.setString(4, usuario.getCorreo());
             sentencia.setDate(5, new java.sql.Date(usuario.getFechaRegistro().getTime()));
@@ -202,9 +203,9 @@ public class UsuarioDao implements IUsuario {
         return correo.matches(regex);
     }
     
-    public void encriptarContraseña(String contraseña) {
+    public String encriptarContraseña(String contraseña) {
         String salt = BCrypt.gensalt();
-        BCrypt.hashpw(contraseña, salt);
+        return BCrypt.hashpw(contraseña, salt);
     }
     
     public boolean verificarContraseña(String contraseña, Usuario usuario) {

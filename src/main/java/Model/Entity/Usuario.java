@@ -34,6 +34,14 @@ public class Usuario {
     public Usuario(String nombre) {
         this.nombreUsuario = nombre;
     }
+
+    /**
+     * Constructor Nombre, id
+     */
+    public Usuario(int id, String nombreUsuario) {
+        this.id = id;
+        this.nombreUsuario = nombreUsuario;
+    }
     
     /**
      * Constructor id, nombreUsuario, contrasena, correo
