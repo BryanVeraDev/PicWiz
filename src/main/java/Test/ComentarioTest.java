@@ -7,6 +7,8 @@ package Test;
 import Model.Entity.Comentario;
 import Model.Entity.Dao.ComentarioDao;
 import Model.Entity.Publicacion;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,12 +17,22 @@ import java.util.List;
  */
 public class ComentarioTest {
     public static void main(String[] args) {
-        ComentarioDao c = new ComentarioDao();
-        Publicacion p = new Publicacion(8);
+        ComentarioDao cdao = new ComentarioDao();
+        Publicacion p = new Publicacion(9);
+        Comentario c = new Comentario(2);
+        
+        Comentario c1 = cdao.consultarId(c);
+        System.out.println(c1.toString());
+        Comentario c2 = new Comentario(4, "Lugar muy lindo", c1.getFecha());
+        //System.out.println(c1.toString());
+        
+        //System.out.println(cdao.borrar(c));
+        
+        System.out.println(cdao.actualizar(c2));
         
         
         //CONSULTAR 
-        List<Comentario> comentarios = c.consultar(p);
+        List<Comentario> comentarios = cdao.consultar(p);
         for (Comentario comentario : comentarios) {
             System.out.println(comentario.toString());
         }

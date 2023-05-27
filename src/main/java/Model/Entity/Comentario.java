@@ -26,9 +26,19 @@ public class Comentario {
         this.fecha = fecha;
     }
 
-    public Comentario() {
+    public Comentario(int id) {
+        this.id = id;
     }
     
+    public Comentario(int id, String texto, Date fecha) {
+        this.id = id;
+        this.texto = texto;
+        this.fecha = fecha;
+    }
+
+
+    public Comentario() {
+    }
 
 
     /**
