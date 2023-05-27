@@ -47,7 +47,8 @@ public class ComentarioDao implements IComentario{
             sentencia = connection.prepareStatement(SQL_INSERTAR);        
             sentencia.setInt(1, comentario.getId());
             sentencia.setString(2, comentario.getTexto());
-            sentencia.setDate(3, comentario.getFecha());
+            long date = comentario.getFecha().getTime();
+            sentencia.setDate(3, new java.sql.Date(date));
             sentencia.setInt(4, comentario.getIdUsuario().getId());
             sentencia.setInt(5, comentario.getIdPublicacion().getId());
             resultado = sentencia.executeUpdate();
@@ -221,7 +222,8 @@ public class ComentarioDao implements IComentario{
             sentencia = connection.prepareStatement(SQL_ACTUALIZAR);
             sentencia.setInt(3, comentario.getId());
             sentencia.setString(1, comentario.getTexto());
-            sentencia.setDate(2, comentario.getFecha());
+            long date = comentario.getFecha().getTime();
+            sentencia.setDate(2, new java.sql.Date(date));
             resultado = sentencia.executeUpdate();
 
         } catch (SQLException ex) {
@@ -238,5 +240,5 @@ public class ComentarioDao implements IComentario{
         }
         return resultado;
     }
-    
+
 }

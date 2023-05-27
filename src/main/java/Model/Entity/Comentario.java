@@ -4,7 +4,7 @@
  */
 package Model.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Comentario {
     private Publicacion idPublicacion;
     private Usuario idUsuario;
     private String texto;
-    private java.sql.Date fecha;
+    private Date fecha;
 
     public Comentario(int id, Publicacion idPublicacion, Usuario idUsuario, String texto, Date fecha) {
         this.id = id;
@@ -100,14 +100,14 @@ public class Comentario {
     /**
      * @return the fecha
      */
-    public java.sql.Date getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(java.sql.Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
