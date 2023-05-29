@@ -4,6 +4,8 @@
  */
 package Model.Entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author DANIELA
@@ -15,6 +17,22 @@ public class Seguidor {
     private Usuario seguido;
     private java.sql.Date fechaSeguimiento;
 
+    public Seguidor(int id, Usuario seguidor, Usuario seguido, Date fechaSeguimiento) {
+        this.id = id;
+        this.seguidor = seguidor;
+        this.seguido = seguido;
+        this.fechaSeguimiento = fechaSeguimiento;
+    }
+
+    public Seguidor(int id) {
+        this.id = id;
+    }
+
+
+    public Seguidor() {
+    }
+
+    
     /**
      * @return the id
      */
@@ -70,5 +88,12 @@ public class Seguidor {
     public void setFechaSeguimiento(java.sql.Date fechaSeguimiento) {
         this.fechaSeguimiento = fechaSeguimiento;
     }
+
+    @Override
+    public String toString() {
+        return "Seguidor{" + "id=" + id + ", seguidor=" + seguidor.getId() + ", " + seguidor.getNombreUsuario() + ", seguido=" + seguido.getId() + ", " + seguido.getNombreUsuario() + ", fechaSeguimiento=" + fechaSeguimiento + '}';
+    }
+    
+    
     
 }

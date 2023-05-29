@@ -54,15 +54,15 @@ public class ComentarioDao implements IComentario{
             resultado = sentencia.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComentarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComentarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 BaseDatos.close(sentencia);
                 BaseDatos.close(connection);
             } catch (SQLException ex) {
-                Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ComentarioDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return resultado;
