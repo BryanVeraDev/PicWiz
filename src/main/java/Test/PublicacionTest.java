@@ -27,10 +27,10 @@ public class PublicacionTest {
         //System.out.println(pd.insertar(p));
         
         //CONSULTAR
-        /*List<Publicacion> publicaciones = pd.consultar();
+        List<Publicacion> publicaciones = pd.consultar();
         for (Publicacion publicacione : publicaciones) {
             System.out.println(publicacione.toString());
-        }*/
+        }
         
         //CONSULTAR POR ID
         //Publicacion p1 = new Publicacion(5);
@@ -40,7 +40,7 @@ public class PublicacionTest {
         //System.out.println(pd.borrar(p1));
         
         //ACTUALIZAR 
-        Publicacion p = new Publicacion(7, "Era post #3 ", "Hola", "imagen nueva");
-        System.out.println(pd.actualizar(p));
+        /*Publicacion p = new Publicacion(7, "Era post #3 ", "Hola", "imagen nueva");
+        System.out.println(pd.actualizar(p));*/
     }
 }

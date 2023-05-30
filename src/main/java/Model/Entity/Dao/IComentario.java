@@ -15,6 +15,7 @@ import java.util.List;
 public interface IComentario {
     public int insertar(Comentario comentario);
     public List<Comentario> consultar(Publicacion id);
+    public List<Comentario> consultarPublicacionId(int id);
     public Comentario consultarId(Comentario comentario);
     public int borrar(Comentario comentario);
     public int actualizar(Comentario comentario);

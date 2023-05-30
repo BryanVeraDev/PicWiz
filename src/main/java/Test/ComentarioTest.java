@@ -33,15 +33,15 @@ public class ComentarioTest {
         
         //System.out.println(cdao.borrar(c));
         
-        System.out.println(cdao.actualizar(c));
+        //System.out.println(cdao.actualizar(c));
         
         
         
-        /*//CONSULTAR 
+        //CONSULTAR 
         List<Comentario> comentarios = cdao.consultar(p);
         for (Comentario comentario : comentarios) {
             System.out.println(comentario.toString());
-        }*/
+        }
         
     }
  

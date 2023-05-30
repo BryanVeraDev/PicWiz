@@ -67,7 +67,8 @@ public class ComentarioDao implements IComentario{
         }
         return resultado;
     }
-
+    
+    
     @Override
     public List<Comentario> consultar(Publicacion publicacion) {
         Connection connection = null;
@@ -127,7 +128,69 @@ public class ComentarioDao implements IComentario{
 
         return comentarios;
     }
+    
+    /*
+    Método el cual permite obtener los comentarios de una publicación mediante su id, lo que permite mayor facilidad al momento
+    de realizar la búsqueda, ya que no se necesita cargar el objeto completo
+    */
+    @Override
+    public List<Comentario> consultarPublicacionId(int id) {
+        Connection connection = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        List<Comentario> comentarios = new ArrayList<>();
+        try {
+            connection = BaseDatos.getConnection();
+  
+            sentencia = connection.prepareStatement(SQL_CONSULTAR, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            sentencia.setInt(1, id);
+            resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                //Comentario
+                int idComentario = resultado.getInt("c.id");
+                String texto = resultado.getString("c.texto_comentario");
+                java.sql.Date fecha = resultado.getDate("c.fecha");
+                
+                //Usuario Comentario
+                int idUsuario = resultado.getInt("u1.id");
+                String nombreUsuario= resultado.getString("u1.nombre");     
+                Usuario u1 = new Usuario(idUsuario, nombreUsuario);
+                
+                //Publicacion  
+                int idPublicacion = resultado.getInt("p.id");
+                String tituloPublicacion = resultado.getString("p.titulo");
+                String descripcionPublicacion = resultado.getString("p.descripcion");
+                java.sql.Date fechaPublicacion = resultado.getDate("fecha_publicacion");
+                String urlImagen = resultado.getString("p.imagen_URL");
+                
+                //Usuario Publicacion
+                int idUsuarioPublicacion = resultado.getInt("u2.id");
+                String nombreUsuarioPublicacion = resultado.getString("u2.nombre");
+                Usuario u2 = new Usuario(idUsuarioPublicacion, nombreUsuarioPublicacion);          
+                Publicacion p = new Publicacion(idPublicacion,tituloPublicacion, descripcionPublicacion, u2, fechaPublicacion, urlImagen);
 
+                Comentario c = new Comentario(idComentario,p , u1, texto, fecha);
+                comentarios.add(c);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ComentarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ComentarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                BaseDatos.close(resultado);
+                BaseDatos.close(sentencia);
+                BaseDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return comentarios;
+    }
+    
     @Override
     public Comentario consultarId(Comentario comentario) {
         Connection connection = null;

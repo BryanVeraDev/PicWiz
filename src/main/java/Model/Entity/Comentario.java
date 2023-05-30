@@ -6,6 +6,7 @@ package Model.Entity;
 
 import java.util.Date;
 
+
 /**
  *
  * @author DANIELA
@@ -16,14 +17,19 @@ public class Comentario {
     private Publicacion idPublicacion;
     private Usuario idUsuario;
     private String texto;
-    private Date fecha;
+    private java.sql.Date fecha;
+    
+    
+    public Comentario() {
+    }
 
+    
     public Comentario(int id, Publicacion idPublicacion, Usuario idUsuario, String texto, Date fecha) {
         this.id = id;
         this.idPublicacion = idPublicacion;
         this.idUsuario = idUsuario;
         this.texto = texto;
-        this.fecha = fecha;
+        this.fecha = (java.sql.Date) fecha;
     }
 
     public Comentario(int id) {
@@ -33,12 +39,9 @@ public class Comentario {
     public Comentario(int id, String texto, Date fecha) {
         this.id = id;
         this.texto = texto;
-        this.fecha = fecha;
+        this.fecha = (java.sql.Date) fecha;
     }
 
-
-    public Comentario() {
-    }
 
 
     /**
@@ -108,7 +111,7 @@ public class Comentario {
      * @param fecha the fecha to set
      */
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha = (java.sql.Date) fecha;
     }
 
     @Override

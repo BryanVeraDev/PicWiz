@@ -20,6 +20,10 @@ public class Usuario {
     private java.sql.Date fechaRegistro;
     private List<Seguidor> followers;
     private List<Seguidor> follows;
+
+    public Usuario() {
+    }
+    
     
     /**
      * Constructor id

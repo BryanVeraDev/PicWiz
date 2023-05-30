@@ -13,7 +13,7 @@ import java.util.Set;
  * @author DANIELA
  */
 
-@ApplicationPath("/apiPicWiz")
+@ApplicationPath("/api")
 public class RestApplication extends Application {
     @Override
     public Set<Class<?>> getClasses() {
@@ -21,6 +21,8 @@ public class RestApplication extends Application {
         //classes.add(CorsFilter.class);
         classes.add(UsuarioResource.class);
         classes.add(PublicacionResource.class);
+        classes.add(SeguidorResource.class);
+        classes.add(ComentarioResource.class);
                 
         // Agrega aquí tus clases de recursos (endpoints son las que dicen Resource) adicionales
         return classes;

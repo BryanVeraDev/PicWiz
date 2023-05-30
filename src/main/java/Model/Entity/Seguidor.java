@@ -16,7 +16,11 @@ public class Seguidor {
     private Usuario seguidor;
     private Usuario seguido;
     private java.sql.Date fechaSeguimiento;
-
+    
+    
+    public Seguidor() {
+    }
+    
     public Seguidor(int id, Usuario seguidor, Usuario seguido, Date fechaSeguimiento) {
         this.id = id;
         this.seguidor = seguidor;
@@ -26,10 +30,6 @@ public class Seguidor {
 
     public Seguidor(int id) {
         this.id = id;
-    }
-
-
-    public Seguidor() {
     }
 
     

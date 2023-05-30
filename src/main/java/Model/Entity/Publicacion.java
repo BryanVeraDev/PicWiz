@@ -5,6 +5,7 @@
 package Model.Entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,10 +17,14 @@ public class Publicacion {
     private String titulo;
     private String descripcion;
     private Usuario autor;
-    private java.util.Date fechaPublicacion;
+    private java.sql.Date fechaPublicacion;
     private String imagenURL;
-    private Comentario[] comentarios;
+    private List<Comentario> comentarios;
 
+    public Publicacion() {
+    }
+
+    
     public Publicacion(int id) {
         this.id = id;
     }
@@ -35,7 +40,7 @@ public class Publicacion {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.autor = autor;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
         this.imagenURL = imagenURL;
     }
 
@@ -44,19 +49,19 @@ public class Publicacion {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.autor = autor;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
         this.imagenURL = imagenURL;
         
     }
 
-    
+    /*
     public int getIdPublicacion() {
         return id;
     }
 
     public void setIdPublicacion(int idPublicacion) {
         this.id = idPublicacion;
-    }
+    }*/
 
     public String getTitulo() {
         return titulo;
@@ -95,11 +100,10 @@ public class Publicacion {
     }
 
     public void setFechaPublicacion(Date fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
     }
 
     
-
     public String getImagenURL() {
         return imagenURL;
     }
@@ -108,11 +112,11 @@ public class Publicacion {
         this.imagenURL = imagenURL;
     }
 
-    public Comentario[] getComentarios() {
+    public List<Comentario> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(Comentario[] comentarios) {
+    public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
     }
 
@@ -126,7 +130,7 @@ public class Publicacion {
         return false;
     }
     
-    public String cometar(){
+    public String comentar(){
         return null;
     }
     
