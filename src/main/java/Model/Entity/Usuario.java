@@ -14,10 +14,10 @@ import java.util.List;
 public class Usuario {
 
     private int id;
-    private String nombreUsuario;
+    private String nombre;
     private String contrasena;
     private String correo;
-    private java.sql.Date fechaRegistro;
+    private java.util.Date fecha_registro;
     private List<Seguidor> followers;
     private List<Seguidor> follows;
 
@@ -36,23 +36,23 @@ public class Usuario {
      * Constructor Nombre
      */
     public Usuario(String nombre) {
-        this.nombreUsuario = nombre;
+        this.nombre = nombre;
     }
 
     /**
      * Constructor Nombre, id
      */
-    public Usuario(int id, String nombreUsuario) {
+    public Usuario(int id, String nombre) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
     }
     
     /**
      * Constructor id, nombreUsuario, contrasena, correo
      */
-    public Usuario(int id, String nombreUsuario, String contrasena, String correo) {
+    public Usuario(int id, String nombre, String contrasena, String correo) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
         this.contrasena = contrasena;
         this.correo = correo;
     }
@@ -60,23 +60,23 @@ public class Usuario {
     /**
      * Constructor nombreUsuario, contrasena, correo, fechaRegistro
      */
-    public Usuario(String nombreUsuario, String contrasena, String correo, Date fechaRegistro) {
+    public Usuario(String nombre, String contrasena, String correo, Date fechaRegistro) {
         
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
         this.contrasena = contrasena;
         this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
+        this.fecha_registro = fechaRegistro;
     }
 
     /**
      * Constructor id, nombreUsuario, contrasena, correo, fechaRegistro
      */
-    public Usuario(int id, String nombreUsuario, String contrasena, String correo, Date fechaRegistro) {
+    public Usuario(int id, String nombre, String contrasena, String correo, Date fechaRegistro) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
         this.contrasena = contrasena;
         this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
+        this.fecha_registro = fechaRegistro;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Usuario {
      */
     public Usuario(int id, String nombreUsuario, String contrasena, Date fechaRegistro, List<Seguidor> followers) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombreUsuario;
         this.contrasena = contrasena;
         //this.fechaRegistro = fechaRegistro;
         this.followers = followers;
@@ -107,15 +107,15 @@ public class Usuario {
     /**
      * @return the nombreUsuario
      */
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
      * @param nombreUsuario the nombreUsuario to set
      */
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombre(String nombreUsuario) {
+        this.nombre = nombreUsuario;
     }
 
     /**
@@ -147,17 +147,17 @@ public class Usuario {
     }
 
     /**
-     * @return the fechaRegistro
+     * @return the fecha_registro
      */
-    public java.sql.Date getFechaRegistro() {
-        return fechaRegistro;
+    public java.util.Date getFecha_registro() {
+        return fecha_registro;
     }
 
     /**
-     * @param fechaRegistro the fechaRegistro to set
+     * @param fecha_registro the fecha_registro to set
      */
-    public void setFechaRegistro(java.sql.Date fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public void setFecha_registro(java.util.Date fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
 
     /**
@@ -176,7 +176,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + getId() + ", nombreUsuario=" + getNombreUsuario() + ", contrasena=" + getContrasena() + ", fechaRegistro=" + getFechaRegistro() + '}';
+        return "Usuario{" + "id=" + getId() + ", nombreUsuario=" + getNombre() + ", contrasena=" + getContrasena() + ", fechaRegistro=" + getFecha_registro() + '}';
     }
+
+    
 
 }

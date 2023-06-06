@@ -36,12 +36,12 @@ public class PublicacionDao implements IPublicacion {
         try {
             connection = BaseDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_INSERTAR);
-            sentencia.setInt(4, publicacion.getAutor().getId());
+            sentencia.setInt(4, publicacion.getId_usuario().getId());
             sentencia.setInt(1, publicacion.getId());
             sentencia.setString(2, publicacion.getTitulo());
             sentencia.setString(3, publicacion.getDescripcion());
-            sentencia.setDate(5, new java.sql.Date(publicacion.getFechaPublicacion().getTime()));
-            sentencia.setString(6, publicacion.getImagenURL());
+            sentencia.setDate(5, new java.sql.Date(publicacion.getFecha_publicacion().getTime()));
+            sentencia.setString(6, publicacion.getImagen_URL());
 
             resultado = sentencia.executeUpdate();
 
@@ -71,16 +71,16 @@ public class PublicacionDao implements IPublicacion {
             sentencia = connection.prepareStatement(SQL_CONSULTAR);
             resultado = sentencia.executeQuery();
             while (resultado.next()) {
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("p.id");
                 String titulo = resultado.getString("titulo");
                 String descripcion = resultado.getString("descripcion");
-                //int idUsuario = resultado.getInt("id_usuario");
+                int idUsuario = resultado.getInt("u.id");
                 String nombreUsuario = resultado.getString("nombre");
                 long f = resultado.getTime("fecha_publicacion").getTime();
                 java.sql.Date fecha = new java.sql.Date(f);
                 java.util.Date fech = new java.util.Date(fecha.getTime());
                 String imagen = resultado.getString("imagen_URL");
-                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(nombreUsuario), fech, imagen);
+                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fech, imagen);
                 publicaciones.add(p);
 
             }
@@ -114,16 +114,17 @@ public class PublicacionDao implements IPublicacion {
             sentencia.setInt(1, publicacion.getId());
             resultado = sentencia.executeQuery();
             resultado.absolute(1);
-            int id = resultado.getInt("id");
-            String titulo = resultado.getString("titulo");
-            String descripcion = resultado.getString("descripcion");
-            String nombreUsuario = resultado.getString("nombre");
-            long f = resultado.getTime("fecha_publicacion").getTime();
+            int id = resultado.getInt("p.id");
+            String titulo = resultado.getString("p.titulo");
+            String descripcion = resultado.getString("p.descripcion");
+            String nombreUsuario = resultado.getString("u.nombre");
+            int idUsuario = resultado.getInt("u.id");
+            long f = resultado.getTime("p.fecha_publicacion").getTime();
             java.sql.Date fecha = new java.sql.Date(f);
             java.util.Date fech = new java.util.Date(fecha.getTime());
-            String imagen = resultado.getString("imagen_URL");
+            String imagen = resultado.getString("p.imagen_URL");
 
-            rPublicacion = new Publicacion(id, titulo, descripcion, new Usuario(nombreUsuario), fech, imagen);
+            rPublicacion = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fech, imagen);
 
         } catch (SQLException ex) {
             Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,7 +185,7 @@ public class PublicacionDao implements IPublicacion {
             sentencia.setInt(4, publicacion.getId());
             sentencia.setString(1, publicacion.getTitulo());
             sentencia.setString(2, publicacion.getDescripcion());
-            sentencia.setString(3, publicacion.getImagenURL());
+            sentencia.setString(3, publicacion.getImagen_URL());
             resultado = sentencia.executeUpdate();
 
         } catch (SQLException ex) {

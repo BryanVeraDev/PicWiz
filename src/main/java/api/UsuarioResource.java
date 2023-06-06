@@ -52,12 +52,11 @@ public class UsuarioResource {
                 .build();
     }    
     @POST
-    @Path("/usuario")
+    @Path("/usuario/registrar")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crear(Usuario usuario)
     {
-        System.out.println("nombre:"+ usuario.getNombreUsuario());
         try{
             usuarioDao.insertar(usuario);
             return  Response
@@ -103,6 +102,33 @@ public class UsuarioResource {
         {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         } 
+    }
+    
+    @POST
+    @Path("/usuario/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response login(Usuario usuario) {
+
+        // Aquí puedes llamar al método login de UsuarioDao para verificar las credenciales del usuario
+        Usuario aux = usuarioDao.login(usuario);
+
+        if (aux != null) {
+            // Si el inicio de sesión es exitoso, puedes generar el token JWT y devolverlo en la respuesta
+            //String token = generarTokenJWT(usuario);
+            try {
+                return  Response
+                .status(Response.Status.FOUND)
+                .entity(aux)
+                .build();
+         
+            } catch (Exception e) {
+                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+            }
+                    } else {
+            // Si el inicio de sesión falla, puedes devolver una respuesta de error
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
     
 }

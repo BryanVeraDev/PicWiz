@@ -16,9 +16,9 @@ public class Publicacion {
     private int id;
     private String titulo;
     private String descripcion;
-    private Usuario autor;
-    private java.sql.Date fechaPublicacion;
-    private String imagenURL;
+    private Usuario id_usuario;
+    private java.util.Date fecha_publicacion;
+    private String imagen_URL;
     private List<Comentario> comentarios;
 
     public Publicacion() {
@@ -29,39 +29,30 @@ public class Publicacion {
         this.id = id;
     }
 
-    public Publicacion(int id, String titulo, String descripcion, String imagenURL) {
+    public Publicacion(int id, String titulo, String descripcion, String imagen_URL) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.imagenURL = imagenURL;
+        this.imagen_URL = imagen_URL;
     }
     
-    public Publicacion(String titulo, String descripcion, Usuario autor, Date fechaPublicacion, String imagenURL) {
+    public Publicacion(String titulo, String descripcion, Usuario id_usuario, Date fecha_publicacion, String imagen_URL) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.autor = autor;
-        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
-        this.imagenURL = imagenURL;
+        this.id_usuario = id_usuario;
+        this.fecha_publicacion = fecha_publicacion;
+        this.imagen_URL = imagen_URL;
     }
 
-    public Publicacion(int id, String titulo, String descripcion, Usuario autor, Date fechaPublicacion, String imagenURL) {
+    public Publicacion(int id, String titulo, String descripcion, Usuario id_usuario, Date fecha_publicacion, String imagen_URL) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.autor = autor;
-        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
-        this.imagenURL = imagenURL;
+        this.id_usuario = id_usuario;
+        this.fecha_publicacion = fecha_publicacion;
+        this.imagen_URL = imagen_URL;
         
     }
-
-    /*
-    public int getIdPublicacion() {
-        return id;
-    }
-
-    public void setIdPublicacion(int idPublicacion) {
-        this.id = idPublicacion;
-    }*/
 
     public String getTitulo() {
         return titulo;
@@ -79,12 +70,12 @@ public class Publicacion {
         this.descripcion = descripcion;
     }
 
-    public Usuario getAutor() {
-        return autor;
+    public Usuario getId_usuario() {
+        return id_usuario;
     }
 
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public void setId_usuario(Usuario id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public int getId() {
@@ -95,21 +86,20 @@ public class Publicacion {
         this.id = id;
     }
 
-    public Date getFechaPublicacion() {
-        return fechaPublicacion;
+    public Date getFecha_publicacion() {
+        return fecha_publicacion;
     }
 
-    public void setFechaPublicacion(Date fechaPublicacion) {
-        this.fechaPublicacion = (java.sql.Date) fechaPublicacion;
+    public void setFecha_publicacion(Date fecha_publicacion) {
+        this.fecha_publicacion = fecha_publicacion;
     }
 
-    
-    public String getImagenURL() {
-        return imagenURL;
+    public String getImagen_URL() {
+        return imagen_URL;
     }
 
-    public void setImagenURL(String imagenURL) {
-        this.imagenURL = imagenURL;
+    public void setImagen_URL(String imagen_URL) {
+        this.imagen_URL = imagen_URL;
     }
 
     public List<Comentario> getComentarios() {
@@ -122,7 +112,7 @@ public class Publicacion {
 
     @Override
     public String toString() {
-        return "Publicacion{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", autor=" + autor.getNombreUsuario() + ", fechaPublicacion=" + fechaPublicacion + ", imagenURL=" + imagenURL + '}';
+        return "Publicacion{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", autor=" + id_usuario.getNombre() + ", fechaPublicacion=" + fecha_publicacion + ", imagenURL=" + imagen_URL + '}';
     }
     
     

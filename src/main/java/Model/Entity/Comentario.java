@@ -117,7 +117,7 @@ public class Comentario {
     @Override
     public String toString() {
         return "Comentario{" + "id=" + id + ", Publicacion=" + "id: "+ idPublicacion.getId()+ ", titulo: " + idPublicacion.getTitulo() 
-                + ", Usuario=" + "id: " + idUsuario.getId() + ", nombre: " + idUsuario.getNombreUsuario() + ", texto=" + texto + ", fecha=" + fecha + '}';
+                + ", Usuario=" + "id: " + idUsuario.getId() + ", nombre: " + idUsuario.getNombre() + ", texto=" + texto + ", fecha=" + fecha + '}';
     }
     
     

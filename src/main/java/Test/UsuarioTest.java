@@ -25,10 +25,12 @@ public class UsuarioTest {
         
         //INSERTAR
         
-        Usuario usuario = new Usuario( "Daniela Vargas", "123456", "danielavarga@gmail.com", new java.sql.Date(new Date().getTime()));
+        Usuario usuario = new Usuario( 124,"Omar Jaimes", "123456", "omar@gmail.com", new java.sql.Date(new Date().getTime()));
         //System.out.println(u.insertar(usuario));
         
         //ELIMINAR
+        
+        System.out.println(u.login(usuario).toString());
         
         //System.out.println(u.borrar(usuario));
         

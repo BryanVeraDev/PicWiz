@@ -91,7 +91,7 @@ public class Seguidor {
 
     @Override
     public String toString() {
-        return "Seguidor{" + "id=" + id + ", seguidor=" + seguidor.getId() + ", " + seguidor.getNombreUsuario() + ", seguido=" + seguido.getId() + ", " + seguido.getNombreUsuario() + ", fechaSeguimiento=" + fechaSeguimiento + '}';
+        return "Seguidor{" + "id=" + id + ", seguidor=" + seguidor.getId() + ", " + seguidor.getNombre() + ", seguido=" + seguido.getId() + ", " + seguido.getNombre() + ", fechaSeguimiento=" + fechaSeguimiento + '}';
     }
     
     
