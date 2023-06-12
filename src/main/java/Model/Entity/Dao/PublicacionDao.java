@@ -76,11 +76,10 @@ public class PublicacionDao implements IPublicacion {
                 String descripcion = resultado.getString("descripcion");
                 int idUsuario = resultado.getInt("u.id");
                 String nombreUsuario = resultado.getString("nombre");
-                long f = resultado.getTime("fecha_publicacion").getTime();
-                java.sql.Date fecha = new java.sql.Date(f);
-                java.util.Date fech = new java.util.Date(fecha.getTime());
+                java.sql.Timestamp timestamp = resultado.getTimestamp("p.fecha_publicacion");
+                java.util.Date fecha = new java.util.Date(timestamp.getTime());
                 String imagen = resultado.getString("imagen_URL");
-                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fech, imagen);
+                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fecha, imagen);
                 publicaciones.add(p);
 
             }
@@ -119,12 +118,11 @@ public class PublicacionDao implements IPublicacion {
             String descripcion = resultado.getString("p.descripcion");
             String nombreUsuario = resultado.getString("u.nombre");
             int idUsuario = resultado.getInt("u.id");
-            long f = resultado.getTime("p.fecha_publicacion").getTime();
-            java.sql.Date fecha = new java.sql.Date(f);
-            java.util.Date fech = new java.util.Date(fecha.getTime());
+            java.sql.Timestamp timestamp = resultado.getTimestamp("p.fecha_publicacion");
+            java.util.Date fecha = new java.util.Date(timestamp.getTime());
             String imagen = resultado.getString("p.imagen_URL");
 
-            rPublicacion = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fech, imagen);
+            rPublicacion = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fecha, imagen);
 
         } catch (SQLException ex) {
             Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);

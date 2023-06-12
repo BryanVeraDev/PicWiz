@@ -8,6 +8,7 @@ import Model.Entity.Usuario;
 import Red.BaseDatos;
 import jakarta.ws.rs.core.Response;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,9 +79,8 @@ public class UsuarioDao implements IUsuario {
                 String nombre = resultado.getString("nombre");
                 String contrasena = resultado.getString("contrasena");
                 String correo = resultado.getString("correo");
-                long f = resultado.getTime("fecha_registro").getTime();
-                java.sql.Date fecha = new java.sql.Date(f);
-
+                java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
+                Date fecha = new java.util.Date(timestamp.getTime());
                 Usuario usuario = new Usuario(id, nombre, contrasena, correo, fecha);
                 usuarios.add(usuario);
 
@@ -119,9 +119,9 @@ public class UsuarioDao implements IUsuario {
             String nombre = resultado.getString("nombre");
             String contrasena = resultado.getString("contrasena");
             String correo = resultado.getString("correo");
-            long f = resultado.getTime("fecha_registro").getTime();
-            java.sql.Date fecha = new java.sql.Date(f);
-            java.util.Date fech = new java.util.Date(fecha.getTime());
+            java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
+            java.util.Date fecha = new java.util.Date(timestamp.getTime());
+            //java.util.Date fech = new java.util.Date(fecha.getTime());
 
             rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
 
@@ -158,9 +158,8 @@ public class UsuarioDao implements IUsuario {
             String nombre = resultado.getString("nombre");
             String contrasena = resultado.getString("contrasena");
             String correo = resultado.getString("correo");
-            long f = resultado.getTime("fecha_registro").getTime();
-            java.sql.Date fecha = new java.sql.Date(f);
-            java.util.Date fech = new java.util.Date(fecha.getTime());
+            java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
+            java.util.Date fecha = new java.util.Date(timestamp.getTime());
 
             rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
 
@@ -260,9 +259,8 @@ public class UsuarioDao implements IUsuario {
                 String nombre = resultado.getString("nombre");
                 String contrasena = resultado.getString("contrasena");
                 String correo = resultado.getString("correo");
-                long f = resultado.getTime("fecha_registro").getTime();
-                java.sql.Date fecha = new java.sql.Date(f);
-                java.util.Date fech = new java.util.Date(fecha.getTime());
+                java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
+                java.util.Date fecha = new java.util.Date(timestamp.getTime());
 
                 rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
 

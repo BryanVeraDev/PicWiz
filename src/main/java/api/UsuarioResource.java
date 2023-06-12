@@ -39,7 +39,8 @@ public class UsuarioResource {
                 .entity(usuarios)
                 .build();
         
-    }     
+    }   
+    
     @GET
     @Path("/usuario/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,10 +48,10 @@ public class UsuarioResource {
         Usuario usuario = new Usuario(id);
         return Response
                 .status(200)
-                .header("Access-Control-Allow-Origin", "*")
                 .entity(usuarioDao.consultarId(usuario))
                 .build();
-    }    
+    }
+    
     @POST
     @Path("/usuario/registrar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -72,7 +73,8 @@ public class UsuarioResource {
                     .entity(ex.getMessage())
                     .build();
         } 
-    }    
+    }  
+    
     @DELETE
     @Path("/usuario/{id}")
     @Produces(MediaType.APPLICATION_JSON)
