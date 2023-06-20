@@ -47,6 +47,22 @@ public class ComentarioResource {
     }
     
     /*
+     Método consultar en el cual se necesita SOLO el id de la publicación
+     */
+    @GET
+    @Path("/comentario/idusuario/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response consultarIdUsuario (@PathParam("id") int id){
+        List<Comentario> comentarios = new ArrayList<>();
+        comentarios = comentarioDao.consultarIdUsuario(id);
+        return Response
+                .status(200)
+                .entity(comentarios)
+                .build();
+        
+    }
+    
+    /*
      Método consultar en el cual se necesita todo el objeto publicación
     */
     @GET
@@ -69,7 +85,6 @@ public class ComentarioResource {
         Comentario comentario = new Comentario (id);
         return Response
                 .status(200)
-                .header("Access-Control-Allow-Origin", "*")
                 .entity(comentarioDao.consultarId(comentario))
                 .build();
     }    
@@ -79,7 +94,6 @@ public class ComentarioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crear(Comentario comentario)
     {
-        System.out.println("titulo:"+ comentario.getId());
         try{
             comentarioDao.insertar(comentario);
             return  Response

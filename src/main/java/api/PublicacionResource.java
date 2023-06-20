@@ -40,13 +40,24 @@ public class PublicacionResource {
         
     }     
     @GET
+    @Path("/publicacion/idusuario/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response consultarIdUsuario (@PathParam("id") int id){
+        List<Publicacion> publicaciones = new ArrayList<>();
+        publicaciones = publicacionDao.consultarIdUsuario(id);   
+        return Response
+                .status(200)
+                .entity(publicaciones)
+                .build();
+        
+    } 
+    @GET
     @Path("/publicacion/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response consultarId(@PathParam("id") int id) {
         Publicacion publicacion = new Publicacion(id);
         return Response
-                .status(200)
-                .header("Access-Control-Allow-Origin", "*")
+                .status(200) 
                 .entity(publicacionDao.consultarId(publicacion))
                 .build();
     }    
@@ -103,4 +114,15 @@ public class PublicacionResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         } 
     }
+    @GET
+    @Path("/publicacion/filtro/{ref}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response filtrarTitulo(@PathParam("ref") String ref) {
+        List<Publicacion> publicaciones = new ArrayList<>();
+        publicaciones = publicacionDao.filtrarTitulo(ref); 
+        return Response
+                .status(200) 
+                .entity(publicaciones)
+                .build();
+    } 
 }

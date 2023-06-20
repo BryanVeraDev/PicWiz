@@ -4,6 +4,7 @@
  */
 package Model.Entity.Dao;
 
+import static Model.Entity.Dao.ComentarioDao.SQL_CONSULTAR;
 import Model.Entity.Publicacion;
 import Model.Entity.Usuario;
 import Red.BaseDatos;
@@ -26,7 +27,9 @@ public class PublicacionDao implements IPublicacion {
     final static String SQL_INSERTAR = "INSERT INTO publicacion(id,titulo,descripcion, id_usuario, fecha_publicacion, imagen_URL) VAlUES(?,?,?,?,?,?)";
     final static String SQL_BORRAR = "DELETE FROM publicacion WHERE id = ?";
     final static String SQL_CONSULTARID = "SELECT u.id, u.nombre, p.id, p.titulo, p.descripcion, p.fecha_publicacion, p.imagen_URL FROM usuario u, publicacion p WHERE u.id = p.id_usuario AND p.id = ?";
+    final static String SQL_CONSULTARIDUSUARIO = "SELECT u.id, u.nombre, p.id, p.titulo, p.descripcion, p.fecha_publicacion, p.imagen_URL FROM usuario u, publicacion p WHERE u.id = p.id_usuario AND p.id_usuario = ?";
     final static String SQL_ACTUALIZAR = "UPDATE publicacion SET titulo = ?, descripcion = ?, imagen_URL = ? WHERE id = ?";
+    final static String SQL_FILTRO = "SELECT u.id, u.nombre, p.id, p.titulo, p.descripcion, p.fecha_publicacion, p.imagen_URL FROM usuario u, publicacion p WHERE u.id = p.id_usuario AND titulo LIKE ";
 
     @Override
     public int insertar(Publicacion publicacion) {
@@ -100,6 +103,47 @@ public class PublicacionDao implements IPublicacion {
 
         return publicaciones;
     }
+    
+    public List<Publicacion> consultarIdUsuario(int idUsuarioPublicacion) {
+        Connection connection = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        List<Publicacion> publicaciones = new ArrayList<>();
+        try {
+            connection = BaseDatos.getConnection();
+            sentencia = connection.prepareStatement(SQL_CONSULTARIDUSUARIO, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            sentencia.setInt(1, idUsuarioPublicacion);
+            resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                int id = resultado.getInt("p.id");
+                String titulo = resultado.getString("titulo");
+                String descripcion = resultado.getString("descripcion");
+                int idUsuario = resultado.getInt("u.id");
+                String nombreUsuario = resultado.getString("nombre");
+                java.sql.Timestamp timestamp = resultado.getTimestamp("p.fecha_publicacion");
+                java.util.Date fecha = new java.util.Date(timestamp.getTime());
+                String imagen = resultado.getString("imagen_URL");
+                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fecha, imagen);
+                publicaciones.add(p);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                BaseDatos.close(resultado);
+                BaseDatos.close(sentencia);
+                BaseDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return publicaciones;
+    }
 
     @Override
     public Publicacion consultarId(Publicacion publicacion) {
@@ -108,6 +152,7 @@ public class PublicacionDao implements IPublicacion {
         ResultSet resultado = null;
         Publicacion rPublicacion = null;
         try {
+            
             connection = BaseDatos.getConnection();
             sentencia = connection.prepareStatement(SQL_CONSULTARID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
             sentencia.setInt(1, publicacion.getId());
@@ -130,9 +175,12 @@ public class PublicacionDao implements IPublicacion {
             Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                BaseDatos.close(resultado);
-                BaseDatos.close(sentencia);
-                BaseDatos.close(connection);
+                if(resultado != null)
+                    BaseDatos.close(resultado);
+                if(sentencia != null)
+                    BaseDatos.close(sentencia);
+                if(connection != null)
+                    BaseDatos.close(connection);
             } catch (SQLException ex) {
                 Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -199,6 +247,47 @@ public class PublicacionDao implements IPublicacion {
             }
         }
         return resultado;
+    }
+    
+    
+    public List<Publicacion> filtrarTitulo(String ref) {
+        Connection connection = null;
+        PreparedStatement sentencia = null;
+        ResultSet resultado = null;
+        List<Publicacion> publicaciones = new ArrayList<>();
+        try {
+            connection = BaseDatos.getConnection();
+            sentencia = connection.prepareStatement(SQL_FILTRO + "'%"+ref+"%'");
+            resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                int id = resultado.getInt("p.id");
+                String titulo = resultado.getString("p.titulo");
+                String descripcion = resultado.getString("p.descripcion");
+                int idUsuario = resultado.getInt("u.id");
+                String nombreUsuario = resultado.getString("u.nombre");
+                java.sql.Timestamp timestamp = resultado.getTimestamp("p.fecha_publicacion");
+                java.util.Date fecha = new java.util.Date(timestamp.getTime());
+                String imagen = resultado.getString("imagen_URL");
+                Publicacion p = new Publicacion(id, titulo, descripcion, new Usuario(idUsuario,nombreUsuario), fecha, imagen);
+                publicaciones.add(p);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                BaseDatos.close(resultado);
+                BaseDatos.close(sentencia);
+                BaseDatos.close(connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(PublicacionDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return publicaciones;
     }
 
 }

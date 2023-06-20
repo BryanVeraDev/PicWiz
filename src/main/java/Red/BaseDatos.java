@@ -16,9 +16,10 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author DANIELA
  */
 public class BaseDatos {
-    public static final String JDBC_URL = "jdbc:mysql://54.147.25.136:3306/60-63-77-82?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    public static final String DB_USER = "test";
-    public static final String DB_CLAVE = "test1_*";
+    //54.147.25.136:3306
+    public static final String JDBC_URL = "jdbc:mysql://localhost:3306/60-63-77-82?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    public static final String DB_USER = "root";
+    public static final String DB_CLAVE = "";
     
     public static DataSource getDataSource(){
         
@@ -44,10 +45,14 @@ public class BaseDatos {
     }
     
     public static void close(ResultSet res) throws SQLException{
-        res.close();
+        if (res != null) {
+            res.close();
+        }
     }
     
     public static void close(PreparedStatement ps) throws SQLException{
-        ps.close();
+        if (ps != null) {
+            ps.close();
+        }
     }
 }

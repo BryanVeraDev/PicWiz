@@ -6,6 +6,8 @@ package Model.Entity.Dao;
 
 import Model.Entity.Usuario;
 import Red.BaseDatos;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.ws.rs.core.Response;
 import java.sql.Connection;
 import java.util.Date;
@@ -28,7 +30,6 @@ public class UsuarioDao implements IUsuario {
     final static String SQL_INSERTAR = "INSERT INTO usuario(id,nombre,contrasena,correo,fecha_registro) VAlUES(?,?,?,?,?)";
     final static String SQL_BORRAR = "DELETE FROM usuario WHERE id = ?";
     final static String SQL_CONSULTARID = "SELECT * FROM usuario WHERE id = ?";
-    final static String SQL_CONSULTARCORREO = "SELECT * FROM usuario WHERE correo = ?";
     final static String SQL_ACTUALIZAR = "UPDATE usuario SET nombre = ?, contrasena = ?, correo = ? WHERE id = ?";
     final static String SQL_LOGIN = "SELECT * FROM usuario WHERE correo = ?";
 
@@ -141,44 +142,6 @@ public class UsuarioDao implements IUsuario {
 
         return rUsuario;
     }
-    
-    
-    public Usuario consultarCorreo(Usuario usuario) {
-        Connection connection = null;
-        PreparedStatement sentencia = null;
-        ResultSet resultado = null;
-        Usuario rUsuario = null;
-        try {
-            connection = BaseDatos.getConnection();
-            sentencia = connection.prepareStatement(SQL_CONSULTARCORREO, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
-            sentencia.setString(1, usuario.getCorreo());
-            resultado = sentencia.executeQuery();
-            resultado.absolute(1);
-            int id = resultado.getInt("id");
-            String nombre = resultado.getString("nombre");
-            String contrasena = resultado.getString("contrasena");
-            String correo = resultado.getString("correo");
-            java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
-            java.util.Date fecha = new java.util.Date(timestamp.getTime());
-
-            rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                BaseDatos.close(resultado);
-                BaseDatos.close(sentencia);
-                BaseDatos.close(connection);
-            } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return rUsuario;
-    }
 
     @Override
     public int borrar(Usuario usuario) {
@@ -245,24 +208,27 @@ public class UsuarioDao implements IUsuario {
         PreparedStatement sentencia = null;
         ResultSet resultado = null;
         Usuario rUsuario = null;
-        Usuario aux = consultarCorreo(usuario);
-        boolean valido = verificarContraseña(usuario.getContrasena(), aux);
-        if(aux != null && valido){
+        Usuario aux = null;
+
             try {
                 connection = BaseDatos.getConnection();
                 sentencia = connection.prepareStatement(SQL_LOGIN, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
                 sentencia.setString(1, usuario.getCorreo());
                 resultado = sentencia.executeQuery();
-                resultado.absolute(1);
+                if (resultado.next()) {
+                    int id = resultado.getInt("id");
+                    String nombre = resultado.getString("nombre");
+                    String contrasena = resultado.getString("contrasena");
+                    String correo = resultado.getString("correo");
+                    java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
+                    Date fecha = new java.util.Date(timestamp.getTime());
                 
-                int id = resultado.getInt("id");
-                String nombre = resultado.getString("nombre");
-                String contrasena = resultado.getString("contrasena");
-                String correo = resultado.getString("correo");
-                java.sql.Timestamp timestamp = resultado.getTimestamp("fecha_registro");
-                java.util.Date fecha = new java.util.Date(timestamp.getTime());
-
-                rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
+                    rUsuario = new Usuario(id, nombre, contrasena, correo, fecha);
+                
+                    if(verificarContraseña(usuario.getContrasena(), rUsuario)){
+                        aux = rUsuario;
+                    }
+                }
 
             } catch (SQLException ex) {
                 Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -276,12 +242,29 @@ public class UsuarioDao implements IUsuario {
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            
         }
-        return rUsuario;
+        return aux;
     }
     
+    public String generarTokenJWT(Usuario usuario) {
+        System.out.println("UsuarioIdToken: " + usuario.getNombre()+ "-" + usuario.getId());
+        // Obtén la información del usuario para incluir en el token (por ejemplo, el ID o el nombre)
+        String userId = ""+(usuario.getId());
     
+        // Configura la firma del token y otras opciones
+        String secretKey = "secreto"; // Clave secreta para firmar el token (debes protegerla adecuadamente)
+        int expirationTimeInMinutes = 60; // Tiempo de expiración del token en minutos
+    
+        // Genera el token JWT
+        String token = Jwts.builder()
+            .setSubject(""+usuario.getId())
+            .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMinutes * 60 * 1000))
+            .signWith(SignatureAlgorithm.HS512, secretKey)
+            .compact();
+    
+        return token;
+    }
     
     public boolean validarCorreo(String correo) {
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";

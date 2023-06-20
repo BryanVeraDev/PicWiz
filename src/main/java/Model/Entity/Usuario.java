@@ -35,8 +35,16 @@ public class Usuario {
     /**
      * Constructor Nombre
      */
-    public Usuario(String nombre) {
-        this.nombre = nombre;
+    public Usuario(String correo) {
+        this.correo = correo;
+    }
+    
+    /**
+     * Constructor Nombre
+     */
+    public Usuario(String correo, String contrasena) {
+        this.correo = correo;
+        this.contrasena = contrasena;
     }
 
     /**
@@ -79,16 +87,6 @@ public class Usuario {
         this.fecha_registro = fechaRegistro;
     }
 
-    /**
-     * Constructor id, nombreUsuario, contrasena, correo, fechaRegistro, followers
-     */
-    public Usuario(int id, String nombreUsuario, String contrasena, Date fechaRegistro, List<Seguidor> followers) {
-        this.id = id;
-        this.nombre = nombreUsuario;
-        this.contrasena = contrasena;
-        //this.fechaRegistro = fechaRegistro;
-        this.followers = followers;
-    }
 
     /**
      * @return the id

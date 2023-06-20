@@ -27,7 +27,7 @@ public class PublicacionTest {
         //System.out.println(pd.insertar(p));
         
         //CONSULTAR
-        List<Publicacion> publicaciones = pd.consultar();
+        List<Publicacion> publicaciones = pd.filtrarTitulo("la");
         for (Publicacion publicacione : publicaciones) {
             System.out.println(publicacione.toString());
         }

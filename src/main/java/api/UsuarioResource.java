@@ -37,8 +37,7 @@ public class UsuarioResource {
         return Response
                 .status(200)
                 .entity(usuarios)
-                .build();
-        
+                .build();    
     }   
     
     @GET
@@ -51,7 +50,7 @@ public class UsuarioResource {
                 .entity(usuarioDao.consultarId(usuario))
                 .build();
     }
-    
+
     @POST
     @Path("/usuario/registrar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,7 +106,7 @@ public class UsuarioResource {
     }
     
     @POST
-    @Path("/usuario/login")
+    @Path("/usuario/ingresar/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(Usuario usuario) {
@@ -117,20 +116,24 @@ public class UsuarioResource {
 
         if (aux != null) {
             // Si el inicio de sesión es exitoso, puedes generar el token JWT y devolverlo en la respuesta
-            //String token = generarTokenJWT(usuario);
+            String token = usuarioDao.generarTokenJWT(aux);
             try {
+                System.out.println("Token: " + token);
                 return  Response
-                .status(Response.Status.FOUND)
+                .status(200)
+                .header("Authorization", "Bearer " + token)
                 .entity(aux)
                 .build();
          
             } catch (Exception e) {
                  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
             }
-                    } else {
+        } else {
             // Si el inicio de sesión falla, puedes devolver una respuesta de error
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+    
+    
     
 }

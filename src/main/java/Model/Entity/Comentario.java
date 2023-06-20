@@ -14,10 +14,10 @@ import java.util.Date;
 public class Comentario {
     
     private int id;
-    private Publicacion idPublicacion;
-    private Usuario idUsuario;
-    private String texto;
-    private java.sql.Date fecha;
+    private Publicacion id_publicacion;
+    private Usuario id_usuario;
+    private String texto_comentario;
+    private java.util.Date fecha;
     
     
     public Comentario() {
@@ -26,10 +26,10 @@ public class Comentario {
     
     public Comentario(int id, Publicacion idPublicacion, Usuario idUsuario, String texto, Date fecha) {
         this.id = id;
-        this.idPublicacion = idPublicacion;
-        this.idUsuario = idUsuario;
-        this.texto = texto;
-        this.fecha = (java.sql.Date) fecha;
+        this.id_publicacion = idPublicacion;
+        this.id_usuario = idUsuario;
+        this.texto_comentario = texto;
+        this.fecha = fecha;
     }
 
     public Comentario(int id) {
@@ -38,11 +38,16 @@ public class Comentario {
     
     public Comentario(int id, String texto, Date fecha) {
         this.id = id;
-        this.texto = texto;
-        this.fecha = (java.sql.Date) fecha;
+        this.texto_comentario = texto;
+        this.fecha =  fecha;
     }
 
-
+    public Comentario(Publicacion id_publicacion, Usuario id_usuario, String texto_comentario, Date fecha) {
+        this.id_publicacion = id_publicacion;
+        this.id_usuario = id_usuario;
+        this.texto_comentario = texto_comentario;
+        this.fecha = fecha;
+    }
 
     /**
      * @return the id
@@ -62,42 +67,42 @@ public class Comentario {
      * @return the idPublicacion
      */
     public Publicacion getIdPublicacion() {
-        return idPublicacion;
+        return id_publicacion;
     }
 
     /**
      * @param idPublicacion the idPublicacion to set
      */
     public void setIdPublicacion(Publicacion idPublicacion) {
-        this.idPublicacion = idPublicacion;
+        this.id_publicacion = idPublicacion;
     }
 
     /**
      * @return the idUsuario
      */
     public Usuario getIdUsuario() {
-        return idUsuario;
+        return id_usuario;
     }
 
     /**
      * @param idUsuario the idUsuario to set
      */
     public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+        this.id_usuario = idUsuario;
     }
 
     /**
      * @return the texto
      */
     public String getTexto() {
-        return texto;
+        return texto_comentario;
     }
 
     /**
      * @param texto the texto to set
      */
     public void setTexto(String texto) {
-        this.texto = texto;
+        this.texto_comentario = texto;
     }
 
     /**
@@ -111,14 +116,10 @@ public class Comentario {
      * @param fecha the fecha to set
      */
     public void setFecha(Date fecha) {
-        this.fecha = (java.sql.Date) fecha;
+        this.fecha = fecha;
     }
 
-    @Override
-    public String toString() {
-        return "Comentario{" + "id=" + id + ", Publicacion=" + "id: "+ idPublicacion.getId()+ ", titulo: " + idPublicacion.getTitulo() 
-                + ", Usuario=" + "id: " + idUsuario.getId() + ", nombre: " + idUsuario.getNombre() + ", texto=" + texto + ", fecha=" + fecha + '}';
-    }
+    
     
     
     
