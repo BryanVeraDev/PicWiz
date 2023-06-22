@@ -4,7 +4,7 @@
  */
 package Model.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Seguidor {
     private int id;
     private Usuario seguidor;
     private Usuario seguido;
-    private java.sql.Date fechaSeguimiento;
+    private java.util.Date fechaSeguimiento;
     
     
     public Seguidor() {
@@ -78,14 +78,14 @@ public class Seguidor {
     /**
      * @return the fechaSeguimiento
      */
-    public java.sql.Date getFechaSeguimiento() {
+    public java.util.Date getFechaSeguimiento() {
         return fechaSeguimiento;
     }
 
     /**
      * @param fechaSeguimiento the fechaSeguimiento to set
      */
-    public void setFechaSeguimiento(java.sql.Date fechaSeguimiento) {
+    public void setFechaSeguimiento(java.util.Date fechaSeguimiento) {
         this.fechaSeguimiento = fechaSeguimiento;
     }
 

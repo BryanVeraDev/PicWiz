@@ -17,7 +17,7 @@ import java.util.List;
 public class SeguidorTest {
     public static void main(String[] args) {
         SeguidorDao sdao = new SeguidorDao();
-        List<Seguidor> seguidor = sdao.consultar();
+        List<Seguidor> seguidor = sdao.consultarSeguidores(135);
         for (Seguidor usuario : seguidor) {
             System.out.println(usuario.toString());
         }
@@ -34,7 +34,7 @@ public class SeguidorTest {
         Seguidor s = new Seguidor(2,u1, u2, new java.sql.Date(f));
         System.out.println(sdao.insertar(s));
         
-        seguidor = sdao.consultar();
+        seguidor = sdao.consultarSeguidores(135);
         for (Seguidor usuario : seguidor) {
             System.out.println(usuario.toString());
         }

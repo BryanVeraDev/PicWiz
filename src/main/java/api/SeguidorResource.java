@@ -29,17 +29,30 @@ public class SeguidorResource {
 
     SeguidorDao seguidorDao = new SeguidorDao();
     @GET
-    @Path("/seguidor")
+    @Path("/seguidor/misseguidores/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response consultar (){
+    public Response consultarSeguidores (@PathParam("id") int id){
         List<Seguidor> seguidores = new ArrayList<>();
-        seguidores = seguidorDao.consultar();
+        seguidores = seguidorDao.consultarSeguidores(id);
         return Response
                 .status(200)
                 .entity(seguidores)
                 .build();
         
-    }     
+    }   
+    
+    @GET
+    @Path("/seguidor/misseguidos/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response consultarSeguidos (@PathParam("id") int id){
+        List<Seguidor> seguidores = new ArrayList<>();
+        seguidores = seguidorDao.consultarSeguidos(id);
+        return Response
+                .status(200)
+                .entity(seguidores)
+                .build();
+        
+    } 
       
     @POST
     @Path("/seguidor")
@@ -49,12 +62,22 @@ public class SeguidorResource {
     {
         System.out.println("id:"+ seguidor.getId());
         try{
-            seguidorDao.insertar(seguidor);
-            return  Response
+            int i = seguidorDao.insertar(seguidor);
+            System.out.println("i: " + i);
+            if(i == 1){
+                System.out.println("Hola: " +i);
+                return  Response
                 .status(Response.Status.CREATED)
                 .entity(seguidor)
                 .build();
-                   
+                
+            }else{
+                System.out.println("Hola: " +i);
+                return Response
+                    .status(Response.Status.CONFLICT)
+                    .entity("Ya sigues a este usuario")
+                    .build();
+            }
         }
         catch(Exception ex)
         {

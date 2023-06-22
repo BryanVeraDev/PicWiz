@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ISeguidor {
     public int insertar(Seguidor seguidor);
-    public List<Seguidor> consultar();
+    public List<Seguidor> consultarSeguidores(int idUsuarioSeguido);
     public int borrar(Seguidor seguidor);
     
 }
